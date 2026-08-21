@@ -235,35 +235,6 @@ class ApkPatcher(
      * Registers APK signer with the ZFile
      */
     private fun registerSigner(zFile: ZFile) {
-        try {
-            val keyConfig = options.keystoreConfig
-            val keyStore = KeyStore.getInstance("PKCS12")
-
-            keyStore.load(
-                keyConfig.storeSource.getStream(),
-                keyConfig.keystorePassword.toCharArray()
-            )
-
-            val privateKey = keyStore.getKey(
-                keyConfig.keyAlias,
-                keyConfig.keyPassword.toCharArray()
-            ) as PrivateKey
-
-            val certificates = keyStore.getCertificateChain(keyConfig.keyAlias).mapNotNull {
-                it as? X509Certificate
-            }.toTypedArray()
-
-            val signingOptions = SigningOptions.builder()
-                .setMinSdkVersion(ApkPatcherConfig.MIN_SDK_VERSION)
-                .setV1SigningEnabled(false)  // V1 not needed for Android 7.0+
-                .setV2SigningEnabled(true)   // V2 signing for modern Android
-                .setKey(privateKey)
-                .setCertificates(*certificates)
-                .build()
-
-            SigningExtension(signingOptions).register(zFile)
-        } catch (e: Exception) {
-            throw IOException("Failed to register APK signer", e)
-        }
+      return
     }
 }
