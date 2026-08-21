@@ -25,8 +25,8 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew :core:jar
 
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v6
+    - name: Upload Standalone CLI Jar Tool
+      uses: actions/upload-artifact@v4
       with:
-        name: srpatch-x-debug
-        path: app/build/outputs/apk/debug/*.apk
+        name: srpatch-cli-tool
+        path: core/build/libs/*.jar
